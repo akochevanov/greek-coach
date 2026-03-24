@@ -47,6 +47,22 @@
       margin: 0 0 10px;
       font-size: 1.1rem;
     }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-title .chevron {
+      font-size: 0.95rem;
+      color: #444;
+      flex: 0 0 auto;
+    }
+    .section.collapsed table {
+      display: none;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -67,6 +83,9 @@
       background: #f6f7f9;
       font-weight: 600;
     }
+    .transcription {
+      color: rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -75,40 +94,70 @@
     <h1>Слова с уроков</h1>
   </div>
   <section class="section">
-    <h2>Существительные (οὐσιαστικά)</h2>
+    <h2 class="section-title"><span>Существительные (οὐσιαστικά)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>δρόμος (дромос)</td><td>дорога</td></tr>
         <tr><td>εβδομάδα (эвдомада)</td><td>неделя</td></tr>
+        <tr><td>εταιρεία (этерия)</td><td>компания, фирма (где работают люди)</td></tr>
         <tr><td>κούραση (кураси)</td><td>усталость</td></tr>
         <tr><td>μέρα (мера)</td><td>день</td></tr>
+        <tr><td>πρωί (прои)</td><td>утро</td></tr>
         <tr><td>τέλος (телос)</td><td>конец</td></tr>
+        <tr><td>ώρα (ора)</td><td>час</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
-    <h2>Глаголы (ῥήματα)</h2>
+    <h2 class="section-title"><span>Глаголы (ῥήματα)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
+        <tr><td>κάνω (кано)</td><td>делать</td></tr>
+        <tr><td>λέω (лео)</td><td>говорить, сказать</td></tr>
+        <tr><td>βλέπω (влепо)</td><td>видеть, смотреть</td></tr>
         <tr><td>ακούω (акуо)</td><td>слышать</td></tr>
+        <tr><td>μιλάω (милао)</td><td>говорить, разговаривать</td></tr>
         <tr><td>ξεκινάω (ксекинао)</td><td>начинаю</td></tr>
+        <tr><td>φεύγω (февго)</td><td>уходить</td></tr>
         <tr><td>βγαίνω (вгэно)</td><td>выхожу</td></tr>
+        <tr><td>βγάζω (вгазо)</td><td>вынимать, доставать</td></tr>
         <tr><td>έχω (эхо)</td><td>иметь</td></tr>
+        <tr><td>παίρνω (перно)</td><td>брать, получать</td></tr>
+        <tr><td>δίνω (дино)</td><td>давать</td></tr>
+        <tr><td>βάζω (вазо)</td><td>класть, ставить</td></tr>
+        <tr><td>ανοίγω (аниго)</td><td>открывать</td></tr>
+        <tr><td>κλείνω (клино)</td><td>закрывать</td></tr>
+        <tr><td>αγοράζω (агоразо)</td><td>покупать</td></tr>
+        <tr><td>πουλάω (пулао)</td><td>продавать</td></tr>
+        <tr><td>στέλνω (стелно)</td><td>отправлять</td></tr>
+        <tr><td>παίρνω τηλέφωνο (перно тилефоно)</td><td>звонить (по телефону)</td></tr>
+        <tr><td>γράφω (графо)</td><td>писать</td></tr>
+        <tr><td>διαβάζω (диавазо)</td><td>читать, изучать</td></tr>
         <tr><td>οδηγώ (одииго)</td><td>водить (машину)</td></tr>
+        <tr><td>δουλεύω (дулево)</td><td>работать</td></tr>
         <tr><td>πάω / πηγαίνω (пао / пигено)</td><td>идти (одно и то же)</td></tr>
+        <tr><td>μένω (мено)</td><td>оставаться, жить</td></tr>
         <tr><td>περνάω (пернао)</td><td>проводить (время)</td></tr>
+        <tr><td>σηκώνομαι (сикономэ)</td><td>вставать, подниматься</td></tr>
+        <tr><td>κοιμάμαι (кимамэ)</td><td>спать</td></tr>
+        <tr><td>ντύνομαι (диномэ)</td><td>одеваться</td></tr>
+        <tr><td>πλένομαι (пленомэ)</td><td>мыться</td></tr>
         <tr><td>προσπαθώ (проспафо)</td><td>пробовать, пытаться</td></tr>
         <tr><td>σημαίνει (симэни)</td><td>значит, означает</td></tr>
         <tr><td>συνεχίσουμε (синехизумэ)</td><td>продолжаем</td></tr>
         <tr><td>τραγουδώ (трагуно)</td><td>петь</td></tr>
         <tr><td>τρώω (троо)</td><td>есть, кушать</td></tr>
+        <tr><td>πίνω (пино)</td><td>пить</td></tr>
+        <tr><td>περπατάω (перпатао)</td><td>ходить пешком, гулять</td></tr>
+        <tr><td>τρέχω (трехо)</td><td>бежать</td></tr>
+        <tr><td>ταξιδεύω (таксидево)</td><td>путешествовать</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
-    <h2>Прилагательные (ἐπίθετα)</h2>
+    <h2 class="section-title"><span>Прилагательные (ἐπίθετα)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>αργός (аргос)</td><td>медленный</td></tr>
@@ -123,10 +172,11 @@
   </section>
 
   <section class="section">
-    <h2>Наречия (ἐπιρρήματα)</h2>
+    <h2 class="section-title"><span>Наречия (ἐπιρρήματα)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>ακόμα (акома)</td><td>все еще</td></tr>
+        <tr><td>αργά (арга)</td><td>медленно</td></tr>
         <tr><td>πάντα (панда)</td><td>всегда</td></tr>
         <tr><td>γρήγορα (григора)</td><td>быстро</td></tr>
         <tr><td>εδώ (эдо)</td><td>здесь</td></tr>
@@ -135,7 +185,9 @@
         <tr><td>έτσι (этси)</td><td>так, таким образом</td></tr>
         <tr><td>κάθε φορά (катэ фора)</td><td>каждый раз</td></tr>
         <tr><td>μαζί (мази)</td><td>вместе</td></tr>
+        <tr><td>μερικές φορές (мерикес форес)</td><td>иногда</td></tr>
         <tr><td>μετά (мета)</td><td>после</td></tr>
+        <tr><td>σχεδόν (схедон)</td><td>почти</td></tr>
         <tr><td>σήμερα (симера)</td><td>сегодня</td></tr>
         <tr><td>σωστά (соста)</td><td>правильно</td></tr>
         <tr><td>τώρα (тора)</td><td>сейчас, теперь</td></tr>
@@ -144,7 +196,7 @@
   </section>
 
   <section class="section">
-    <h2>Союз (σύνδεσμος)</h2>
+    <h2 class="section-title"><span>Союз (σύνδεσμος)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>αλλά (ала)</td><td>но</td></tr>
@@ -154,7 +206,7 @@
   </section>
 
   <section class="section">
-    <h2>Предлог (πρόθεση)</h2>
+    <h2 class="section-title"><span>Предлог (πρόθεση)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>από (апо)</td><td>от, из, с</td></tr>
@@ -163,7 +215,7 @@
   </section>
 
   <section class="section">
-    <h2>Вопросительные слова</h2>
+    <h2 class="section-title"><span>Вопросительные слова</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
         <tr><td>γιατί (яти)</td><td>почему?</td></tr>
@@ -176,12 +228,79 @@
   </section>
 
   <section class="section">
-    <h2>Устойчивые выражения</h2>
+    <h2 class="section-title"><span>Устойчивые выражения</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
+        <tr><td>για εμένα (я эмена)</td><td>про меня</td></tr>
         <tr><td>γι’ αυτό (йафто)</td><td>поэтому</td></tr>
+        <tr><td>μερικές φορές (мерикес форес)</td><td>иногда, временами</td></tr>
+        <tr><td>πάω βόλτα (пао волта)</td><td>гулять</td></tr>
       </tbody>
     </table>
   </section>
+  <script>
+    const transcriptionPattern = /\s\(([^()]+)\)$/;
+    const greekCollator = new Intl.Collator("el", { sensitivity: "base" });
+    const stripTranscription = (text) => text.replace(transcriptionPattern, "").trim();
+
+    const tables = document.querySelectorAll("table");
+    for (const table of tables) {
+      const tbody = table.querySelector("tbody");
+      if (!tbody) continue;
+
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+      rows.sort((a, b) => {
+        const aText = stripTranscription(a.querySelector("td")?.textContent ?? "");
+        const bText = stripTranscription(b.querySelector("td")?.textContent ?? "");
+        return greekCollator.compare(aText, bText);
+      });
+
+      for (const row of rows) {
+        tbody.append(row);
+      }
+    }
+
+    const wordCells = document.querySelectorAll("tbody tr td:first-child");
+    for (const cell of wordCells) {
+      const text = cell.textContent.trim();
+      const match = text.match(transcriptionPattern);
+      if (!match) continue;
+
+      const base = text.replace(transcriptionPattern, "");
+      cell.textContent = "";
+      cell.append(document.createTextNode(`${base} `));
+
+      const transcription = document.createElement("span");
+      transcription.className = "transcription";
+      transcription.textContent = `(${match[1]})`;
+      cell.append(transcription);
+    }
+
+    const sections = document.querySelectorAll(".section");
+    for (const section of sections) {
+      const title = section.querySelector(".section-title");
+      const chevron = section.querySelector(".chevron");
+      const table = section.querySelector("table");
+      if (!title || !chevron || !table) continue;
+
+      title.setAttribute("role", "button");
+      title.setAttribute("tabindex", "0");
+      title.setAttribute("aria-expanded", "true");
+
+      const toggle = () => {
+        const isCollapsed = section.classList.toggle("collapsed");
+        chevron.textContent = isCollapsed ? "▾" : "▴";
+        title.setAttribute("aria-expanded", String(!isCollapsed));
+      };
+
+      title.addEventListener("click", toggle);
+      title.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    }
+  </script>
 </body>
 </html>
