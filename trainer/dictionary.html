@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Слова с уроков</title>
+  <title>Dictionary</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -35,6 +35,23 @@
       margin: 0 0 18px;
       color: #555;
       line-height: 1.45;
+    }
+    .search-wrap {
+      margin: 0 0 14px;
+    }
+    .search-input {
+      width: 100%;
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      font-size: 1rem;
+      padding: 10px 12px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+    .search-input:focus {
+      outline: 2px solid #9ec5ff;
+      outline-offset: 1px;
+      border-color: #9ec5ff;
     }
     .section {
       background: #fff;
@@ -91,20 +108,97 @@
 <body>
   <div class="top">
     <a class="back-link" href="./index.html" aria-label="Назад к тренажеру">←</a>
-    <h1>Слова с уроков</h1>
+    <h1>Dictionary</h1>
+  </div>
+  <div class="search-wrap">
+    <input
+      id="word-search"
+      class="search-input"
+      type="search"
+      placeholder="Поиск..."
+      aria-label="Поиск слов"
+      autocomplete="off"
+    >
   </div>
   <section class="section">
     <h2 class="section-title"><span>Существительные (οὐσιαστικά)</span><span class="chevron" aria-hidden="true">▴</span></h2>
     <table>
       <tbody>
-        <tr><td>δρόμος (дромос)</td><td>дорога</td></tr>
-        <tr><td>εβδομάδα (эвдомада)</td><td>неделя</td></tr>
-        <tr><td>εταιρεία (этерия)</td><td>компания, фирма (где работают люди)</td></tr>
-        <tr><td>κούραση (кураси)</td><td>усталость</td></tr>
-        <tr><td>μέρα (мера)</td><td>день</td></tr>
-        <tr><td>πρωί (прои)</td><td>утро</td></tr>
-        <tr><td>τέλος (телос)</td><td>конец</td></tr>
-        <tr><td>ώρα (ора)</td><td>час</td></tr>
+        <tr><td>ο άνθρωπος (ансропос)</td><td>человек</td></tr>
+        <tr><td>ο άνδρας (андрас)</td><td>мужчина</td></tr>
+        <tr><td>η αγάπη (агапи)</td><td>любовь</td></tr>
+        <tr><td>το αγόρι (агори)</td><td>мальчик</td></tr>
+        <tr><td>η αδελφή (адельфи)</td><td>сестра</td></tr>
+        <tr><td>ο αδελφός (адельфос)</td><td>брат</td></tr>
+        <tr><td>ο αθλητής (атлитис)</td><td>спортсмен</td></tr>
+        <tr><td>η απάντηση (апандиси)</td><td>ответ</td></tr>
+        <tr><td>η άσκηση (асксиси)</td><td>упражнение</td></tr>
+        <tr><td>το αύριο (аврио)</td><td>завтра</td></tr>
+        <tr><td>η αυλή (авли)</td><td>двор</td></tr>
+        <tr><td>το βράδυ (вради)</td><td>вечер</td></tr>
+        <tr><td>το γάλα (гала)</td><td>молоко</td></tr>
+        <tr><td>η γλώσσα (глоса)</td><td>язык</td></tr>
+        <tr><td>οι γονείς (гонис)</td><td>родители</td></tr>
+        <tr><td>η γιαγιά (яя)</td><td>бабушка</td></tr>
+        <tr><td>το γραφείο (графио)</td><td>офис</td></tr>
+        <tr><td>ο δάσκαλος (даскалос)</td><td>учитель</td></tr>
+        <tr><td>το διαβατήριο (диаватирио)</td><td>паспорт</td></tr>
+        <tr><td>η δουλειά (дулья)</td><td>работа</td></tr>
+        <tr><td>ο δρόμος (дромос)</td><td>дорога, улица</td></tr>
+        <tr><td>το δωμάτιο (доматио)</td><td>комната</td></tr>
+        <tr><td>ο εργαζόμενος (эргазоменос)</td><td>работник</td></tr>
+        <tr><td>η εργασία (эргасия)</td><td>работа</td></tr>
+        <tr><td>η ερώτηση (эротиси)</td><td>вопрос</td></tr>
+        <tr><td>η εβδομάδα (эвдомада)</td><td>неделя</td></tr>
+        <tr><td>η εταιρεία (этерия)</td><td>компания, фирма (где работают люди)</td></tr>
+        <tr><td>η κούραση (кураси)</td><td>усталость</td></tr>
+        <tr><td>η μέρα (мера)</td><td>день</td></tr>
+        <tr><td>η θάλασσα (таласа)</td><td>море</td></tr>
+        <tr><td>ο καθηγητής (кафитис)</td><td>преподаватель</td></tr>
+        <tr><td>η καρέκλα (карекла)</td><td>стул</td></tr>
+        <tr><td>ο καφές (кафэс)</td><td>кофе</td></tr>
+        <tr><td>το κέντρο (кендро)</td><td>центр</td></tr>
+        <tr><td>η κόρη (кори)</td><td>дочь</td></tr>
+        <tr><td>το κορίτσι (корици)</td><td>девочка</td></tr>
+        <tr><td>η κουζίνα (кузина)</td><td>кухня</td></tr>
+        <tr><td>η λέξη (лекси)</td><td>слово</td></tr>
+        <tr><td>τα λεφτά (лефта)</td><td>деньги</td></tr>
+        <tr><td>το μαγαζί (магази)</td><td>магазин</td></tr>
+        <tr><td>το μάθημα (мафима)</td><td>урок</td></tr>
+        <tr><td>ο μαθητής (мафитис)</td><td>ученик</td></tr>
+        <tr><td>η μαθήτρια (мафитрия)</td><td>ученица</td></tr>
+        <tr><td>η μητέρα (митера)</td><td>мать</td></tr>
+        <tr><td>το νερό (неро)</td><td>вода</td></tr>
+        <tr><td>το νησί (ниси)</td><td>остров</td></tr>
+        <tr><td>η νύχτα (нихта)</td><td>ночь</td></tr>
+        <tr><td>ο οδηγός (одхигос)</td><td>водитель, гид</td></tr>
+        <tr><td>η οδός (одос)</td><td>улица</td></tr>
+        <tr><td>η οικογένεια (икеньэа)</td><td>семья</td></tr>
+        <tr><td>η γυναίκα (гинэка)</td><td>женщина</td></tr>
+        <tr><td>το παιχνίδι (пэхниди)</td><td>игра</td></tr>
+        <tr><td>το παιδί (пэди)</td><td>ребёнок</td></tr>
+        <tr><td>το παγωτό (пагото)</td><td>мороженое</td></tr>
+        <tr><td>το πανεπιστήμιο (панепистимио)</td><td>университет</td></tr>
+        <tr><td>ο πατέρας (патерас)</td><td>отец</td></tr>
+        <tr><td>το περίπτερο (периптеро)</td><td>киоск</td></tr>
+        <tr><td>ο πίνακας (пинакас)</td><td>картина, таблица</td></tr>
+        <tr><td>η πόλη (поли)</td><td>город</td></tr>
+        <tr><td>η πόρτα (порта)</td><td>дверь</td></tr>
+        <tr><td>το πρόβλημα (проблима)</td><td>проблема</td></tr>
+        <tr><td>το πρωί (прои)</td><td>утро</td></tr>
+        <tr><td>το ρολόι (ролои)</td><td>часы</td></tr>
+        <tr><td>το ταξίδι (таксиди)</td><td>путешествие</td></tr>
+        <tr><td>το τέλος (телос)</td><td>конец</td></tr>
+        <tr><td>το τραίνο (трэно)</td><td>поезд</td></tr>
+        <tr><td>το τραπέζι (трапези)</td><td>стол</td></tr>
+        <tr><td>η τράπεζα (трапеза)</td><td>банк</td></tr>
+        <tr><td>ο υιός (иос)</td><td>сын</td></tr>
+        <tr><td>το φαγητό (фагито)</td><td>еда</td></tr>
+        <tr><td>ο φίλος (филос)</td><td>друг</td></tr>
+        <tr><td>η φοιτήτρια (фититрия)</td><td>студентка</td></tr>
+        <tr><td>ο χρόνος (хронос)</td><td>время, год</td></tr>
+        <tr><td>το ψωμί (псоми)</td><td>хлеб</td></tr>
+        <tr><td>η ώρα (ора)</td><td>час</td></tr>
       </tbody>
     </table>
   </section>
@@ -242,6 +336,10 @@
     const transcriptionPattern = /\s\(([^()]+)\)$/;
     const greekCollator = new Intl.Collator("el", { sensitivity: "base" });
     const stripTranscription = (text) => text.replace(transcriptionPattern, "").trim();
+    const normalizeSearchText = (text) => text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
 
     const tables = document.querySelectorAll("table");
     for (const table of tables) {
@@ -277,6 +375,25 @@
     }
 
     const sections = document.querySelectorAll(".section");
+    const searchInput = document.querySelector("#word-search");
+    const filterRows = () => {
+      const query = normalizeSearchText(searchInput?.value.trim() ?? "");
+      for (const section of sections) {
+        const rows = section.querySelectorAll("tbody tr");
+        let hasVisibleRows = false;
+        for (const row of rows) {
+          const rowText = normalizeSearchText(row.textContent ?? "");
+          const isVisible = query === "" || rowText.includes(query);
+          row.style.display = isVisible ? "" : "none";
+          if (isVisible) hasVisibleRows = true;
+        }
+        section.style.display = hasVisibleRows ? "" : "none";
+      }
+    };
+    if (searchInput) {
+      searchInput.addEventListener("input", filterRows);
+    }
+
     for (const section of sections) {
       const title = section.querySelector(".section-title");
       const chevron = section.querySelector(".chevron");
@@ -301,6 +418,7 @@
         }
       });
     }
+    filterRows();
   </script>
 </body>
 </html>
