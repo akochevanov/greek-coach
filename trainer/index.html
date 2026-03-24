@@ -325,7 +325,7 @@
         if (!loaded.length) throw new Error("В наборе нет карточек.");
         pairs = loaded;
         initTrainer();
-        setStatus(`Загружено: ${pairs.length} карточек (${prettyNameFromPath(selected)}).`);
+        setStatus(`Загружено: ${pairs.length} карточек.`);
       } catch (e) {
         trainerCard.style.display = "none";
         setStatus(`Ошибка: ${e.message}`);
