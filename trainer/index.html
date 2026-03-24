@@ -24,6 +24,23 @@
       text-align: center;
       line-height: 1.35;
     }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 18px;
+    }
+    .title-row h1 {
+      margin: 0;
+    }
+    .title-link {
+      color: #1a237e;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
     .panel, .card {
       background: #fff;
       border-radius: 20px;
@@ -125,7 +142,10 @@
   </style>
 </head>
 <body>
-  <h1>Greek Trainer</h1>
+  <div class="title-row">
+    <h1>Greek Trainer</h1>
+    <a class="title-link" href="./slova-s-urokov.html">Dictionary</a>
+  </div>
 
   <div class="panel">
     <div class="row controls-row">
