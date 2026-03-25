@@ -19,19 +19,23 @@
     .top {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       margin-bottom: 14px;
     }
     h1 {
       margin: 0;
       font-size: 1.5rem;
     }
-    .back-link {
-      text-decoration: none;
-      color: #000;
-      font-size: 1.2rem;
+    .panel-close {
+      border: 0;
+      background: transparent;
+      width: 24px;
+      height: 24px;
       line-height: 1;
-      white-space: nowrap;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      color: #222;
     }
     .search-wrap {
       margin: 0 0 14px;
@@ -100,8 +104,8 @@
 </head>
 <body>
   <div class="top">
-    <a class="back-link" href="./index.html" aria-label="Назад к тренажеру">←</a>
     <h1>Dictionary</h1>
+    <button class="panel-close" id="panelCloseBtn" type="button" aria-label="Закрыть словарь">×</button>
   </div>
   <div class="search-wrap">
     <input
@@ -250,6 +254,17 @@
       } catch (error) {
         container.innerHTML = `<section class="section"><p>Ошибка загрузки словаря: ${error.message}</p></section>`;
       }
+    }
+
+    const panelCloseBtn = document.querySelector("#panelCloseBtn");
+    if (panelCloseBtn) {
+      panelCloseBtn.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: "close-dictionary-panel" }, window.location.origin);
+          return;
+        }
+        window.location.href = "./index.html";
+      });
     }
 
     bootstrapDictionary();
