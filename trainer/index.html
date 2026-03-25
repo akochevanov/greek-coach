@@ -164,29 +164,9 @@
       transition: transform 0.24s ease;
       z-index: 1000;
       display: flex;
-      flex-direction: column;
     }
     body.dictionary-open .dictionary-panel {
       transform: translateX(0);
-    }
-    .dictionary-panel-header {
-      display: none;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 10px 12px;
-      border-bottom: 1px solid #ececec;
-      background: #fff;
-    }
-    .dictionary-close {
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 8px;
-      width: 34px;
-      height: 34px;
-      line-height: 1;
-      font-size: 1.35rem;
-      cursor: pointer;
-      padding: 0;
     }
     .dictionary-frame {
       width: 100%;
@@ -201,12 +181,6 @@
       .dictionary-panel {
         width: 100vw;
         border-left: 0;
-      }
-      .dictionary-panel-header {
-        display: flex;
-      }
-      .dictionary-frame {
-        height: calc(100% - 55px);
       }
     }
   </style>
@@ -240,9 +214,6 @@
     </div>
   </div>
   <aside class="dictionary-panel" id="dictionaryPanel" aria-hidden="true">
-    <div class="dictionary-panel-header">
-      <button class="dictionary-close" id="dictionaryCloseBtn" type="button" aria-label="Закрыть словарь">×</button>
-    </div>
     <iframe class="dictionary-frame" src="./dictionary.html" title="Dictionary panel"></iframe>
   </aside>
 
@@ -258,7 +229,6 @@
     const btnMain = document.getElementById("btnMain");
     const dictionaryToggle = document.getElementById("dictionaryToggle");
     const dictionaryPanel = document.getElementById("dictionaryPanel");
-    const dictionaryCloseBtn = document.getElementById("dictionaryCloseBtn");
 
     let pairs = [];
     let order = [];
@@ -462,10 +432,6 @@
         const isOpen = document.body.classList.contains("dictionary-open");
         setDictionaryOpen(!isOpen);
       });
-    }
-
-    if (dictionaryCloseBtn) {
-      dictionaryCloseBtn.addEventListener("click", () => setDictionaryOpen(false));
     }
 
     window.addEventListener("message", (event) => {
