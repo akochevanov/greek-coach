@@ -1,7 +1,8 @@
 {
   "datasets": [
-    "data/frazy-slova-s-urokov.md",
+    "data/frazy-s-urokov.md",
     "data/sklonenia-po-rodam.md",
-    "data/top-verbs-practice.md"
+    "data/top-verbs.md",
+    "data/numbers.md"
   ]
 }
