@@ -131,6 +131,9 @@
     function createSectionElement(sectionData) {
       const section = document.createElement("section");
       section.className = "section";
+      if (sectionData.preserveOrder) {
+        section.dataset.preserveOrder = "true";
+      }
       const h2 = document.createElement("h2");
       h2.className = "section-title";
       const heading = document.createElement("span");
@@ -160,6 +163,7 @@
     }
 
     function sortRowsInSection(section) {
+      if (section.dataset.preserveOrder === "true") return;
       const tbody = section.querySelector("tbody");
       if (!tbody) return;
       const rows = Array.from(tbody.querySelectorAll("tr"));
