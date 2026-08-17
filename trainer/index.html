@@ -290,7 +290,7 @@
         .replace(/\.dataset\.md$/i, "")
         .replace(/\.md$/i, "")
         .replace(/\.json$/i, "")
-        .replace(/[-_]+/g, " ");
+        .replace(/_/g, " ");
     }
 
     function parseMarkdownTableRows(lines) {
