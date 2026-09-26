@@ -2,3 +2,10 @@
 !.gitignore
 !trainer/
 !trainer/**
+!grammar/
+!grammar/**
+!office lessons/
+!office lessons/**
+!archive/
+!archive/**
+.DS_Store

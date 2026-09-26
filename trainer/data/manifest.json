@@ -1,11 +1,15 @@
 {
   "datasets": [
-    "data/frazy-s-urokov.md",
-    "data/frazy-s-urokov-2.md",
-    "data/sklonenia-po-rodam.md",
-    "data/top-verbs.md",
-    "data/top-verbs-2.md",
-    "data/Мария - часть 1.md",
-    "data/numbers.md"
+    "data/Фразы с уроков 1.md",
+    "data/Фразы с уроков 2.md",
+    "data/Склонения про родам.md",
+    "data/Топ глаголы 1.md",
+    "data/Топ глаголы 2.md",
+    "data/Связки - вопросы.md",
+    "data/Связки - время.md",
+    "data/Связки - места.md",
+    "data/Связки - неопределенности.md",
+    "data/Связки - предлоги.md",
+    "data/Связки - союзы.md"
   ]
 }
