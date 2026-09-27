@@ -8,4 +8,8 @@
 !office lessons/**
 !archive/
 !archive/**
+!dictionary/
+!dictionary/**
+!topics/
+!topics/**
 .DS_Store
