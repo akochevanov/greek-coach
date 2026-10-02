@@ -123,8 +123,18 @@
       color: #444;
       flex: 0 0 auto;
     }
-    .section.collapsed table {
+    .section.collapsed table,
+    .section.collapsed .theme {
       display: none;
+    }
+    .theme-title {
+      margin: 18px 16px 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1a237e;
+    }
+    .section > .theme:first-of-type .theme-title {
+      margin-top: 8px;
     }
     table {
       width: 100%;
@@ -193,32 +203,60 @@
       chevron.textContent = "▴";
       h2.append(heading, chevron);
 
-      const table = document.createElement("table");
-      const tbody = document.createElement("tbody");
-      for (const entry of sectionData.entries || []) {
-        const row = document.createElement("tr");
-        const tdEl = document.createElement("td");
-        const tdRu = document.createElement("td");
-        tdEl.textContent = entry.el || "";
-        tdRu.textContent = entry.ru || "";
-        row.append(tdEl, tdRu);
-        tbody.append(row);
+      const fillTable = (entries) => {
+        const table = document.createElement("table");
+        const tbody = document.createElement("tbody");
+        for (const entry of entries) {
+          const row = document.createElement("tr");
+          const tdEl = document.createElement("td");
+          const tdRu = document.createElement("td");
+          tdEl.textContent = entry.el || "";
+          tdRu.textContent = entry.ru || "";
+          row.append(tdEl, tdRu);
+          tbody.append(row);
+        }
+        table.append(tbody);
+        return table;
+      };
+
+      section.append(h2);
+      const themes = sectionData.themes || [];
+      if (themes.length) {
+        const byTheme = new Map();
+        for (const entry of sectionData.entries || []) {
+          const theme = entry.theme || "Разное";
+          if (!byTheme.has(theme)) byTheme.set(theme, []);
+          byTheme.get(theme).push(entry);
+        }
+        const order = themes.filter((theme) => byTheme.has(theme));
+        for (const theme of byTheme.keys()) {
+          if (!order.includes(theme)) order.push(theme);
+        }
+        for (const theme of order) {
+          const block = document.createElement("div");
+          block.className = "theme";
+          const h3 = document.createElement("h3");
+          h3.className = "theme-title";
+          h3.textContent = theme;
+          block.append(h3, fillTable(byTheme.get(theme)));
+          section.append(block);
+        }
+      } else {
+        section.append(fillTable(sectionData.entries || []));
       }
-      table.append(tbody);
-      section.append(h2, table);
       return section;
     }
 
     function sortRowsInSection(section) {
-      const tbody = section.querySelector("tbody");
-      if (!tbody) return;
-      const rows = Array.from(tbody.querySelectorAll("tr"));
-      rows.sort((a, b) => {
-        const aText = stripTranscription(a.querySelector("td")?.textContent ?? "");
-        const bText = stripTranscription(b.querySelector("td")?.textContent ?? "");
-        return greekCollator.compare(aText, bText);
-      });
-      for (const row of rows) tbody.append(row);
+      for (const tbody of section.querySelectorAll("tbody")) {
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        rows.sort((a, b) => {
+          const aText = stripTranscription(a.querySelector("td")?.textContent ?? "");
+          const bText = stripTranscription(b.querySelector("td")?.textContent ?? "");
+          return greekCollator.compare(aText, bText);
+        });
+        for (const row of rows) tbody.append(row);
+      }
     }
 
     function styleTranscriptions() {
@@ -297,6 +335,11 @@
             if (isVisible) hasVisibleRows = true;
           }
 
+          section.querySelectorAll(".theme").forEach((theme) => {
+            const visible = Array.from(theme.querySelectorAll("tbody tr")).some((row) => row.style.display !== "none");
+            theme.style.display = visible ? "" : "none";
+          });
+
           section.classList.toggle("search-mode", searching);
           if (searching) section.classList.remove("collapsed");
           section.style.display = searching
@@ -312,6 +355,12 @@
       };
 
       searchInput.addEventListener("input", applyView);
+      searchInput.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && e.code === "KeyA") {
+          e.preventDefault();
+          searchInput.select();
+        }
+      });
       applyView();
     }
 

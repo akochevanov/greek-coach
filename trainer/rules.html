@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules</title>
+  <link rel="icon" href="./favicon.png?v=1" type="image/png">
+  <link rel="shortcut icon" href="./favicon.png?v=1" type="image/png">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+      background: #f8f6f2;
+      color: #1a1a1a;
+    }
+    .dict-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #f8f6f2;
+      padding-top: 24px;
+      padding-bottom: 12px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .panel-close {
+      border: 0;
+      background: transparent;
+      width: 24px;
+      height: 24px;
+      line-height: 1;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      color: #222;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      margin: 0;
+      padding-bottom: 4px;
+    }
+    .tab {
+      flex: 0 0 auto;
+      border: 1px solid #1a237e;
+      background: #1a237e;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      white-space: nowrap;
+      color: #fff;
+      cursor: pointer;
+    }
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      padding: 8px 0;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .theme-title {
+      margin: 18px 16px 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1a237e;
+    }
+    .section > .theme-title:first-child {
+      margin-top: 8px;
+    }
+    .case-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 0.96rem;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .case-table:last-child {
+      margin-bottom: 0;
+    }
+    .case-table th,
+    .case-table td {
+      border: 0;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: left;
+      vertical-align: top;
+      padding: 8px 12px;
+      font-weight: 400;
+    }
+    .case-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .examples {
+      margin: 4px 16px 16px;
+      padding: 0;
+      list-style: none;
+    }
+    .examples li {
+      margin: 0 0 8px;
+      font-size: 0.96rem;
+      line-height: 1.4;
+    }
+    .examples li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="dict-sticky">
+    <div class="top">
+      <h1>Rules</h1>
+      <button class="panel-close" id="panelCloseBtn" type="button" aria-label="Закрыть правила">×</button>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Разделы правил">
+      <button class="tab" type="button" role="tab" aria-selected="true">Падежи</button>
+    </div>
+  </div>
+  <section class="section" aria-label="Падежи">
+    <h3 class="theme-title">Именительный (кто?/что?)</h3>
+    <table class="case-table">
+      <thead>
+        <tr>
+          <th>род</th>
+          <th colspan="3">ед число</th>
+          <th colspan="2">множ число</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="gender">муж</td>
+          <td>ένας</td>
+          <td>ο</td>
+          <td>-ος / -ης / -ας</td>
+          <td>οι</td>
+          <td>-οι / -ες</td>
+        </tr>
+        <tr>
+          <td class="gender">жен</td>
+          <td>μία</td>
+          <td>η</td>
+          <td>-α / -η</td>
+          <td>οι</td>
+          <td>-ές</td>
+        </tr>
+        <tr>
+          <td class="gender">сред</td>
+          <td>ένα</td>
+          <td>το</td>
+          <td>-ος / -ι / -μα</td>
+          <td>τα</td>
+          <td>-α / -ια / -ματα</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="examples">
+      <li>Ο Γιάννης δουλεύει στη Λεμεσό — Иоаннис работает в Лимассоле</li>
+      <li>Η γυναίκα διαβάζει ένα βιβλίο — Женщина читает книгу</li>
+      <li>Το παιδί παίζει στο σπίτι — Ребёнок играет дома</li>
+    </ul>
+
+    <h3 class="theme-title">Родительный (чей?)</h3>
+    <table class="case-table">
+      <thead>
+        <tr>
+          <th>род</th>
+          <th colspan="3">ед число</th>
+          <th colspan="2">множ число</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="gender">муж</td>
+          <td>ενός</td>
+          <td>του</td>
+          <td>-ου / -ή / α</td>
+          <td>των</td>
+          <td>-ων</td>
+        </tr>
+        <tr>
+          <td class="gender">жен</td>
+          <td>μίας</td>
+          <td>της</td>
+          <td>-ας / -ης</td>
+          <td>των</td>
+          <td>-ων</td>
+        </tr>
+        <tr>
+          <td class="gender">сред</td>
+          <td>ενός</td>
+          <td>του</td>
+          <td>-ίου / -ού / -ματος</td>
+          <td>των</td>
+          <td>-ων / -μάτων</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="examples">
+      <li>Το σπίτι του Γιάννη είναι μεγάλο — Дом Иоанниса большой</li>
+      <li>Ο σκύλος της Μαρίας είναι μικρός — Собака Марии маленькая</li>
+      <li>Το δωμάτιο του παιδιού είναι μικρό — Комната ребёнка маленькая</li>
+    </ul>
+
+    <h3 class="theme-title">Винительный (кого?/что?)</h3>
+    <table class="case-table">
+      <thead>
+        <tr>
+          <th>род</th>
+          <th colspan="3">ед число</th>
+          <th colspan="2">множ число</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="gender">муж</td>
+          <td>έναν</td>
+          <td>τον</td>
+          <td>-ο / -η / -α</td>
+          <td>τους</td>
+          <td>-ους / -ες</td>
+        </tr>
+        <tr>
+          <td class="gender">жен</td>
+          <td>μία</td>
+          <td>την</td>
+          <td>-α / -η</td>
+          <td>τις</td>
+          <td>-ες / -εις</td>
+        </tr>
+        <tr>
+          <td class="gender">сред</td>
+          <td>ένα</td>
+          <td>το</td>
+          <td>-ος / -ι / -μα</td>
+          <td>τα</td>
+          <td>-α / -ια / -ματα</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="examples">
+      <li>Βλέπω τον Γιάννη στο πάρκο — Я вижу Иоанниса в парке</li>
+      <li>Πηγαίνω για τη δουλειά — Я иду на работу</li>
+      <li>Πάω στη δουλειά με το αυτοκίνητο — Я еду на работу на машине</li>
+    </ul>
+  </section>
+  <script>
+    const panelCloseBtn = document.querySelector("#panelCloseBtn");
+    if (panelCloseBtn) {
+      panelCloseBtn.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: "close-dictionary-panel" }, window.location.origin);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

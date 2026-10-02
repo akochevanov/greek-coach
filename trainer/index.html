@@ -270,6 +270,8 @@
     <div class="title-row">
       <h1>Greek Trainer</h1>
       <div class="title-dict-wrap">
+        <a class="title-link" href="./rules.html" id="rulesToggle">Rules</a>
+        <span class="title-dict-sep" aria-hidden="true">·</span>
         <a class="title-link" href="./dictionary.html" id="dictionaryToggle">Dictionary</a>
         <span class="title-dict-sep" aria-hidden="true">·</span>
         <a
@@ -318,7 +320,7 @@
       aria-label="Ширина словаря"
       tabindex="0"
     ></div>
-    <iframe class="dictionary-frame" src="./dictionary.html" title="Dictionary panel"></iframe>
+    <iframe class="dictionary-frame" id="sidePanelFrame" src="./dictionary.html" title="Dictionary panel"></iframe>
   </aside>
 
   <script>
@@ -332,8 +334,15 @@
     const phraseElBlock = document.getElementById("phraseElBlock");
     const btnMain = document.getElementById("btnMain");
     const dictionaryToggle = document.getElementById("dictionaryToggle");
+    const rulesToggle = document.getElementById("rulesToggle");
     const dictionaryPanel = document.getElementById("dictionaryPanel");
     const dictionaryResize = document.getElementById("dictionaryResize");
+    const sidePanelFrame = document.getElementById("sidePanelFrame");
+    const panelPages = {
+      dictionary: "./dictionary.html",
+      rules: "./rules.html"
+    };
+    let panelPage = "dictionary";
     let pairs = [];
     let order = [];
     let index = 0;
@@ -524,8 +533,27 @@
         dictionaryPanel.setAttribute("aria-hidden", String(!isOpen));
       }
       if (dictionaryToggle) {
-        dictionaryToggle.setAttribute("aria-expanded", String(isOpen));
+        dictionaryToggle.setAttribute("aria-expanded", String(isOpen && panelPage === "dictionary"));
       }
+      if (rulesToggle) {
+        rulesToggle.setAttribute("aria-expanded", String(isOpen && panelPage === "rules"));
+      }
+      if (sidePanelFrame) {
+        sidePanelFrame.title = panelPage === "rules" ? "Rules panel" : "Dictionary panel";
+      }
+    }
+
+    function openSidePanel(page) {
+      const isOpen = document.body.classList.contains("dictionary-open");
+      if (isOpen && panelPage === page) {
+        setDictionaryOpen(false);
+        return;
+      }
+      if (panelPage !== page && sidePanelFrame) {
+        sidePanelFrame.src = panelPages[page];
+        panelPage = page;
+      }
+      setDictionaryOpen(true);
     }
 
     if (dictionaryToggle) {
@@ -534,8 +562,17 @@
       dictionaryToggle.addEventListener("click", (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
-        const isOpen = document.body.classList.contains("dictionary-open");
-        setDictionaryOpen(!isOpen);
+        openSidePanel("dictionary");
+      });
+    }
+
+    if (rulesToggle) {
+      rulesToggle.setAttribute("aria-controls", "dictionaryPanel");
+      rulesToggle.setAttribute("aria-expanded", "false");
+      rulesToggle.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        openSidePanel("rules");
       });
     }
 
