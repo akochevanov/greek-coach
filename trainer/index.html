@@ -274,6 +274,8 @@
         <span class="title-dict-sep" aria-hidden="true">·</span>
         <a class="title-link" href="./dictionary.html" id="dictionaryToggle">Dictionary</a>
         <span class="title-dict-sep" aria-hidden="true">·</span>
+        <a class="title-link" href="./topics.html" id="topicsToggle">Topics</a>
+        <span class="title-dict-sep" aria-hidden="true">·</span>
         <a
           class="dictionary-page-link"
           href="./dictionary.html"
@@ -335,12 +337,19 @@
     const btnMain = document.getElementById("btnMain");
     const dictionaryToggle = document.getElementById("dictionaryToggle");
     const rulesToggle = document.getElementById("rulesToggle");
+    const topicsToggle = document.getElementById("topicsToggle");
     const dictionaryPanel = document.getElementById("dictionaryPanel");
     const dictionaryResize = document.getElementById("dictionaryResize");
     const sidePanelFrame = document.getElementById("sidePanelFrame");
     const panelPages = {
       dictionary: "./dictionary.html",
-      rules: "./rules.html"
+      rules: "./rules.html",
+      topics: "./topics.html"
+    };
+    const panelFrameTitles = {
+      dictionary: "Dictionary panel",
+      rules: "Rules panel",
+      topics: "Topics panel"
     };
     let panelPage = "dictionary";
     let pairs = [];
@@ -538,8 +547,11 @@
       if (rulesToggle) {
         rulesToggle.setAttribute("aria-expanded", String(isOpen && panelPage === "rules"));
       }
+      if (topicsToggle) {
+        topicsToggle.setAttribute("aria-expanded", String(isOpen && panelPage === "topics"));
+      }
       if (sidePanelFrame) {
-        sidePanelFrame.title = panelPage === "rules" ? "Rules panel" : "Dictionary panel";
+        sidePanelFrame.title = panelFrameTitles[panelPage] || panelFrameTitles.dictionary;
       }
     }
 
@@ -573,6 +585,16 @@
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
         openSidePanel("rules");
+      });
+    }
+
+    if (topicsToggle) {
+      topicsToggle.setAttribute("aria-controls", "dictionaryPanel");
+      topicsToggle.setAttribute("aria-expanded", "false");
+      topicsToggle.addEventListener("click", (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        openSidePanel("topics");
       });
     }
 

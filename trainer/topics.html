@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Topics</title>
+  <link rel="icon" href="./favicon.png?v=1" type="image/png">
+  <link rel="shortcut icon" href="./favicon.png?v=1" type="image/png">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+      background: #f8f6f2;
+      color: #1a1a1a;
+    }
+    .dict-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #f8f6f2;
+      padding-top: 24px;
+      padding-bottom: 12px;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .panel-close {
+      border: 0;
+      background: transparent;
+      width: 24px;
+      height: 24px;
+      line-height: 1;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      color: #222;
+    }
+    .search-wrap {
+      margin: 0 0 10px;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      margin: 0;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .tabs[hidden] {
+      display: none;
+    }
+    .tab {
+      flex: 0 0 auto;
+      border: 1px solid #d7d7d7;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      white-space: nowrap;
+      color: #1a1a1a;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #1a237e;
+      border-color: #1a237e;
+      color: #fff;
+    }
+    .section h2 {
+      display: none;
+    }
+    .section.search-mode h2 {
+      display: flex;
+    }
+    .search-input {
+      width: 100%;
+      border: 1px solid #d7d7d7;
+      border-radius: 10px;
+      font-size: 1rem;
+      padding: 10px 12px;
+      background: #fff;
+      color: #1a1a1a;
+    }
+    .search-input:focus {
+      outline: 2px solid #9ec5ff;
+      outline-offset: 1px;
+      border-color: #9ec5ff;
+    }
+    .section {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      padding: 8px 0;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    h2 {
+      margin: 8px 16px 10px;
+      font-size: 1.1rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-title .chevron {
+      font-size: 0.95rem;
+      color: #444;
+      flex: 0 0 auto;
+    }
+    .section.collapsed table,
+    .section.collapsed .theme {
+      display: none;
+    }
+    .theme-title {
+      margin: 18px 16px 6px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1a237e;
+    }
+    .section > .theme:first-of-type .theme-title {
+      margin-top: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 0.96rem;
+      line-height: 1.35;
+    }
+    th, td {
+      width: 50%;
+    }
+    th, td {
+      border: 0;
+      border-bottom: 1px solid #e5e5e5;
+      text-align: left;
+      vertical-align: top;
+      padding: 8px 16px;
+    }
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .transcription {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="dict-sticky">
+    <div class="top">
+      <h1>Topics</h1>
+      <button class="panel-close" id="panelCloseBtn" type="button" aria-label="Закрыть темы">×</button>
+    </div>
+    <div class="search-wrap">
+      <input
+        id="word-search"
+        class="search-input"
+        type="search"
+        placeholder="Поиск..."
+        aria-label="Поиск по темам"
+        autocomplete="off"
+      >
+    </div>
+    <div class="tabs" id="dictionary-tabs" role="tablist" aria-label="Темы"></div>
+  </div>
+  <div id="dictionary-sections"></div>
+  <script>
+    const dataPath = "data/topics-words.json";
+    const partOfSpeechGroups = ["Существительные", "Глаголы", "Прилагательные"];
+    const transcriptionPattern = /\s\(([^()]+)\)$/;
+    const greekCollator = new Intl.Collator("el", { sensitivity: "base" });
+    const stripTranscription = (text) => text.replace(transcriptionPattern, "").trim();
+    const normalizeSearchText = (text) => text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    function createSectionElement(sectionData) {
+      const section = document.createElement("section");
+      section.className = "section";
+      const h2 = document.createElement("h2");
+      h2.className = "section-title";
+      const heading = document.createElement("span");
+      heading.textContent = sectionData.title;
+      const chevron = document.createElement("span");
+      chevron.className = "chevron";
+      chevron.setAttribute("aria-hidden", "true");
+      chevron.textContent = "▴";
+      h2.append(heading, chevron);
+
+      const fillTable = (entries) => {
+        const table = document.createElement("table");
+        const tbody = document.createElement("tbody");
+        for (const entry of entries) {
+          const row = document.createElement("tr");
+          const tdEl = document.createElement("td");
+          const tdRu = document.createElement("td");
+          tdEl.textContent = entry.el || "";
+          tdRu.textContent = entry.ru || "";
+          row.append(tdEl, tdRu);
+          tbody.append(row);
+        }
+        table.append(tbody);
+        return table;
+      };
+
+      section.append(h2);
+      const entries = sectionData.entries || [];
+      const groups = sectionData.groups?.length ? sectionData.groups : partOfSpeechGroups;
+      const byGroup = new Map(groups.map((group) => [group, []]));
+      for (const entry of entries) {
+        const group = entry.group || "Существительные";
+        if (!byGroup.has(group)) byGroup.set(group, []);
+        byGroup.get(group).push(entry);
+      }
+      for (const [group, groupEntries] of byGroup) {
+        const block = document.createElement("div");
+        block.className = "theme";
+        const h3 = document.createElement("h3");
+        h3.className = "theme-title";
+        h3.textContent = group;
+        block.append(h3, fillTable(groupEntries));
+        section.append(block);
+      }
+      return section;
+    }
+
+    function sortRowsInSection(section) {
+      for (const tbody of section.querySelectorAll("tbody")) {
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        rows.sort((a, b) => {
+          const aText = stripTranscription(a.querySelector("td")?.textContent ?? "");
+          const bText = stripTranscription(b.querySelector("td")?.textContent ?? "");
+          return greekCollator.compare(aText, bText);
+        });
+        for (const row of rows) tbody.append(row);
+      }
+    }
+
+    function styleTranscriptions() {
+      const wordCells = document.querySelectorAll("tbody tr td:first-child");
+      for (const cell of wordCells) {
+        const text = cell.textContent.trim();
+        const match = text.match(transcriptionPattern);
+        if (!match) continue;
+        const base = text.replace(transcriptionPattern, "");
+        cell.textContent = "";
+        cell.append(document.createTextNode(`${base} `));
+        const transcription = document.createElement("span");
+        transcription.className = "transcription";
+        transcription.textContent = `(${match[1]})`;
+        cell.append(transcription);
+      }
+    }
+
+    function setupSectionToggle(section) {
+      const title = section.querySelector(".section-title");
+      const chevron = section.querySelector(".chevron");
+      if (!title || !chevron) return;
+      title.setAttribute("role", "button");
+      title.setAttribute("tabindex", "0");
+      title.setAttribute("aria-expanded", "true");
+
+      const toggle = () => {
+        const isCollapsed = section.classList.toggle("collapsed");
+        chevron.textContent = isCollapsed ? "▾" : "▴";
+        title.setAttribute("aria-expanded", String(!isCollapsed));
+      };
+
+      title.addEventListener("click", toggle);
+      title.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    }
+
+    function setupTabsAndSearch(sections, titles) {
+      const searchInput = document.querySelector("#word-search");
+      const tabsEl = document.querySelector("#dictionary-tabs");
+      if (!searchInput || !tabsEl) return;
+
+      let activeIndex = 0;
+      const tabs = titles.map((title, index) => {
+        const tab = document.createElement("button");
+        tab.type = "button";
+        tab.className = "tab";
+        tab.setAttribute("role", "tab");
+        tab.textContent = title;
+        tab.addEventListener("click", () => {
+          activeIndex = index;
+          searchInput.value = "";
+          applyView();
+          tab.scrollIntoView({ inline: "nearest", block: "nearest" });
+        });
+        tabsEl.append(tab);
+        return tab;
+      });
+
+      const applyView = () => {
+        const query = normalizeSearchText(searchInput.value.trim());
+        const searching = query.length > 0;
+        tabsEl.hidden = searching;
+
+        sections.forEach((section, index) => {
+          const rows = section.querySelectorAll("tbody tr");
+          let hasVisibleRows = false;
+          for (const row of rows) {
+            const rowText = normalizeSearchText(row.textContent ?? "");
+            const isVisible = !searching || rowText.includes(query);
+            row.style.display = isVisible ? "" : "none";
+            if (isVisible) hasVisibleRows = true;
+          }
+
+          section.querySelectorAll(".theme").forEach((theme) => {
+            const visible = Array.from(theme.querySelectorAll("tbody tr")).some((row) => row.style.display !== "none");
+            theme.style.display = searching && !visible ? "none" : "";
+          });
+
+          section.classList.toggle("search-mode", searching);
+          if (searching) section.classList.remove("collapsed");
+          section.style.display = searching
+            ? (hasVisibleRows ? "" : "none")
+            : (index === activeIndex ? "" : "none");
+        });
+
+        tabs.forEach((tab, index) => {
+          const isActive = index === activeIndex;
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+        });
+      };
+
+      searchInput.addEventListener("input", applyView);
+      searchInput.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && e.code === "KeyA") {
+          e.preventDefault();
+          searchInput.select();
+        }
+      });
+      applyView();
+    }
+
+    async function bootstrapDictionary() {
+      const container = document.querySelector("#dictionary-sections");
+      if (!container) return;
+      try {
+        const res = await fetch(dataPath, { cache: "no-store" });
+        if (!res.ok) throw new Error("Не удалось загрузить словарь.");
+        const payload = await res.json();
+        if (!Array.isArray(payload.sections)) throw new Error("Неверный формат словаря.");
+
+        const sections = payload.sections.map(createSectionElement);
+        for (const section of sections) {
+          sortRowsInSection(section);
+          container.append(section);
+          setupSectionToggle(section);
+        }
+
+        styleTranscriptions();
+        setupTabsAndSearch(sections, payload.sections.map(section => section.title));
+      } catch (error) {
+        container.innerHTML = `<section class="section"><p>Ошибка загрузки словаря: ${error.message}</p></section>`;
+      }
+    }
+
+    const panelCloseBtn = document.querySelector("#panelCloseBtn");
+    if (panelCloseBtn) {
+      panelCloseBtn.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: "close-dictionary-panel" }, window.location.origin);
+          return;
+        }
+        window.location.href = "./index.html";
+      });
+    }
+
+    bootstrapDictionary();
+  </script>
+</body>
+</html>
